@@ -21,10 +21,9 @@ type Config struct {
 }
 
 func Load() (*Config, error) {
-	// Load .env file
-	if err := godotenv.Load(); err != nil {
-		return nil, fmt.Errorf("error loading .env file: %w", err)
-	}
+	// Load .env file (optional - chỉ dùng cho local development)
+	// Nếu không có file .env thì bỏ qua (dùng env vars từ hệ thống)
+	_ = godotenv.Load()
 
 	// Parse PING_URLS
 	urlsStr := os.Getenv("PING_URLS")
