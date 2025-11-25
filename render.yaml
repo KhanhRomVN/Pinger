@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: pinger
+    env: go
+    buildCommand: go build -tags netgo -ldflags '-s -w' -o bin/pinger ./cmd/pinger
+    startCommand: ./bin/pinger
+    envVars:
+      - key: PING_URLS
+        sync: false
+      - key: PING_INTERVAL
+        value: 60
+      - key: REQUEST_TIMEOUT
+        value: 10
+      - key: MAX_RETRIES
+        value: 3
+      - key: LOG_LEVEL
+        value: info
+      - key: LOG_RESPONSE_BODY
+        value: false
+      - key: PORT
+        value: 8080

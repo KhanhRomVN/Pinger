@@ -11,6 +11,7 @@ import (
 )
 
 type Config struct {
+	Port             string
 	PingURLs         []string
 	PingInterval     time.Duration
 	RequestTimeout   time.Duration
@@ -73,7 +74,11 @@ func Load() (*Config, error) {
 		logBody = false
 	}
 
+	// Parse PORT
+	port := getEnvOrDefault("PORT", "8080")
+
 	return &Config{
+		Port:            port,
 		PingURLs:        cleanURLs,
 		PingInterval:    time.Duration(intervalSec) * time.Second,
 		RequestTimeout:  time.Duration(timeoutSec) * time.Second,
